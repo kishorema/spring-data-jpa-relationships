@@ -26,7 +26,7 @@ public class DataDisplayRestController
     @Autowired
     EnhancedRandom enhancedRandom;
 
-    @GetMapping(value = "/")
+    @GetMapping(value = "/data")
     public ResponseEntity<Object> getData()
     {
         long nextLong1 = enhancedRandom.nextLong();
