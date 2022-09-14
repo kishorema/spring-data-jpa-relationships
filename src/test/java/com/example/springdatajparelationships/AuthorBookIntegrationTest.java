@@ -6,6 +6,7 @@ import com.example.springdatajparelationships.database.entity.Category;
 import com.example.springdatajparelationships.database.entity.Photo;
 import com.example.springdatajparelationships.database.repository.BookRepository;
 import io.github.benas.randombeans.api.EnhancedRandom;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @SpringBootTest
+@Slf4j
 class AuthorBookIntegrationTest
 {
     @Autowired
@@ -62,5 +64,22 @@ class AuthorBookIntegrationTest
         Book savedBook = bookRepository.save(book);
         Assertions.assertNotNull(savedBook);
 
+        savedBook.getAuthors().forEach(x ->
+        {
+            log.info("----------------------- Authors -------------------------");
+            log.info("Id {} first name: {} last name: {}", x.getId(), x.getFirstName(), x.getLastName());
+        });
+
+        savedBook.getCategories().forEach(x ->
+        {
+            log.info("----------------------- Categories -------------------------");
+            log.info("Category {} Books size {}", x.getCategory(), x.getBooks().size());
+        });
+        log.info("----------------------- Photo ----------------------------------");
+        log.info("Photo Id {} ", savedBook.getPhoto().getId());
+
+        log.info("----------------------- Books ----------------------------------");
+        log.info("Book Id {} Book Title {}", savedBook.getId(), savedBook.getTitle());
+        log.info("----------------------- END -------------------------------------");
     }
 }
